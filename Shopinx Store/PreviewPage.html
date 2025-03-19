@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Preview</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Saved Product Details</h2>
+        <div class="card p-3">
+            <h5 id="previewProductName">Product Name: <span class="text-muted">N/A</span></h5>
+            <p id="previewProductDescription">Description: <span class="text-muted">N/A</span></p>
+            <img id="previewLiveProductImage" class="hidden" style="width: 150px; height: 150px;">
+            <h5 class="mt-3">Pricing Details</h5>
+            <p>Net Price: <span id="previewNetPrice" class="text-muted">N/A</span></p>
+            <p>List Price: <span id="previewListPrice" class="text-muted">N/A</span></p>
+            <p>Discount: <span id="previewDiscount" class="text-muted">N/A</span></p>
+            <p>Stock Level: <span id="previewStockLevel" class="text-muted">N/A</span></p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const savedData = JSON.parse(localStorage.getItem("savedProduct"));
+            if (savedData) {
+                document.getElementById('previewProductName').innerHTML = "Product Name: " + (savedData.productName || "N/A");
+                document.getElementById('previewProductDescription').innerHTML = "Description: " + (savedData.productDescription || "N/A");
+                document.getElementById('previewNetPrice').innerText = savedData.netPrice || "N/A";
+                document.getElementById('previewListPrice').innerText = savedData.listPrice || "N/A";
+                document.getElementById('previewDiscount').innerText = savedData.discount || "N/A";
+                document.getElementById('previewStockLevel').innerText = savedData.stockLevel || "N/A";
+
+                if (savedData.imageSrc) {
+                    const previewLiveImage = document.getElementById('previewLiveProductImage');
+                    previewLiveImage.src = savedData.imageSrc;
+                    previewLiveImage.classList.remove('hidden');
+                }
+            }
+        };
+    </script>
+</body>
+</html>
